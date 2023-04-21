@@ -1,6 +1,8 @@
 # CaPTk Histogram Matching
 
-Flywheel gear that implements CaPTk's application for histogram matching (image intensity normalization based on reference image).
+Flywheel gear that implements [CaPTk's application for histogram matching](https://cbica.github.io/CaPTk/preprocessing_histoMatch.html) (image intensity normalization based on reference image).
+
+NOTE: images must be co-registered
 
 ## Dependencies:
 - CaPTk (gear uses the existing Docker container 2021.03.29)
@@ -10,4 +12,6 @@ Flywheel gear that implements CaPTk's application for histogram matching (image 
 - Reference image
 
 ## Optional configuration:
-- output file name (defaults to radiomic_features.csv)
+- histogram bins
+- histogram quantiles
+- output file name (defaults to output.nii.gz)
