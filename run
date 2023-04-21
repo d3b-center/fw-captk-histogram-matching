@@ -33,14 +33,24 @@ awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d 
 if [[ -f $CONFIG_FILE ]]; then
   echo "$CONTAINER  $CONFIG_FILE found. Loading config..."
 
+  histogram_bins="$(cat $CONFIG_FILE | jsonValue histogram_bins)"
+  histogram_quantiles="$(cat $CONFIG_FILE | jsonValue histogram_quantiles)"
   output_fn="$(cat $CONFIG_FILE | jsonValue output_file_name)"
 
 else
   echo "$CONTAINER  $CONFIG_FILE not found. Loading defaults from $MANIFEST..."
 
+  histogram_bins="$(cat $MANIFEST | jsonValue histogram_bins default)"
+  histogram_quantiles="$(cat $MANIFEST | jsonValue histogram_quantiles default)"
   output_fn="$(cat $MANIFEST | jsonValue output_file_name default)"
 
 fi
+
+## convert string to int
+# histogram_bins=$((histogram_bins))
+# histogram_quantiles=$((histogram_quantiles))
+# echo "${histogram_quantiles}"
+# echo "$(($histogram_quantiles))"
 
 ## Find the input files
 input_im_file=$(find $input_im_DIR/* -maxdepth 0 -type f -name "*.nii*")
@@ -57,8 +67,6 @@ if [[ -f $input_im_file ]] && \
 
   CaPTk_dir=/opt/captk/1.8.1/usr # path to install (in Docker container)
 
-  histogram_bins=100
-  histogram_quantiles=40
   echo "$CONTAINER  Running CaPTk Histogram Matching"
   ${CaPTk_dir}/bin/Preprocessing \
     -i "${input_im_file}" \

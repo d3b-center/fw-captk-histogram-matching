@@ -11,7 +11,7 @@
   "custom": {
     "gear-builder": {
       "category": "analysis",
-      "image": "chop.flywheel.io/captk-coregistration:0.0.0"
+      "image": "chop.flywheel.io/captk-histogram-matching:0.0.0"
     },
     "flywheel": {
       "suite": "CaPTk"
@@ -40,6 +40,16 @@
     }
   },
   "config": {
+    "histogram_bins": {
+      "description": "Number of histogram bins for histogram matching (Defaults to 100).",
+      "type": "string",
+      "default":"100"
+    },
+    "histogram_quantiles": {
+      "description": "Number of quantile values to match for histogram matching (Defaults to 40).",
+      "type": "string",
+      "default":"40"
+    },
     "output_file_name": {
       "description": "File name for output image (defaults to output.nii.gz).",
       "type": "string",
